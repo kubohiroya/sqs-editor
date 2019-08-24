@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sqs2</groupId>
+	<artifactId>SourceEditor</artifactId>
+	<packaging>jar</packaging>
+	<name>SQS SourceEditor</name>
+	<version>2.1-SNAPSHOT</version>
+
+	<description>SQS SourceEditor is an OMR Form Designer/Publisher.</description>
+	<url>http://dev.sqs2.net/projects/sqs-editor</url>
+	<inceptionYear>2003</inceptionYear>
+
+	<organization>
+		<name>SQS Development Project</name>
+		<url>http://dev.sqs2.net/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Hiroya KUBO</name>
+			<email>hiroya@cuc.ac.jp</email>
+			<organization>Chiba University of Commerce</organization>
+			<organizationUrl>http://www.cuc.ac.jp/</organizationUrl>
+			<roles>
+				<role>Project Administrator</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>-9</timezone>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<repositories>
+		<repository>
+			<id>mvnrepository</id>
+			<url>http://mvnrepository.com/artifact</url>
+		</repository>
+		<repository>
+			<id>sqs2.net</id>
+			<name>SQS Project Repository</name>
+			<url>http://mvnrepository.sqs2.net/artifact</url>
+		</repository>
+	</repositories>
+	
+	<!-- 
+		<pluginRepositories>
+		<pluginRepository>
+			<id>codehaus repository</id>
+			<url>http://repository.codehaus.org/</url>
+		</pluginRepository>
+	</pluginRepositories>
+	-->
+
+	<distributionManagement>
+		<repository>
+			<id>scp-repository</id>
+			<url>scp://mvnrepository.sqs2.net:/var/www/artifact/</url>
+		</repository>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:https://bitbucket.org/kubohiroya/sqs-editor</connection>
+		<developerConnection>scm:hg:ssh://hg@bitbucket.org/kubohiroya/sqs-editor</developerConnection>
+	</scm>
+	
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.png</include>
+					<include>**/*.ttf</include>
+					<include>**/*.gif</include>
+					<include>**/*.png</include>
+					<include>**/*.css</include>
+					<include>**/*.js</include>
+					<include>**/*.xslt</include>
+					<include>**/*.xsl</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.txt</include>
+					<include>**/*.html</include>
+					<include>**/*.xhtml</include>
+					<include>**/*.xml</include>
+					<include>**/*.sqs</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<goals>install</goals>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.3</version>
+				<configuration>
+					<phase>compile</phase>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<revisionOnScmFailure>SNAPSHOT</revisionOnScmFailure>
+					<doCheck>false</doCheck>
+					<doUpdate>false</doUpdate>
+					<timestampFormat>{0, date, yyyy-MM-dd HH:mm:ss}</timestampFormat>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+						<version>1.6.4</version>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-simple</artifactId>
+						<version>1.6.4</version>
+					</dependency>
+					<dependency>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-nop</artifactId>
+						<version>1.6.4</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1</version>
+				<configuration>
+					<mainClass>${main.class}</mainClass>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<assembleDirectory>${project.build.directory}/${project.artifactId}</assembleDirectory>
+					<extraJvmArguments>-Xmx${maxHeapSize}</extraJvmArguments>
+					<plathomes>all</plathomes>
+					<showConsoleWindow>false</showConsoleWindow>
+					<programs>
+						<program>
+							<mainClass>${main.class}</mainClass>
+							<name>${project.artifactId}</name>
+						</program>
+					</programs>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<transformers>
+						<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<mainClass>${main.class}</mainClass>
+						</transformer>
+					</transformers>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>${main.class}</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-my-jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-beta-1</version>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>jnlp</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<spec>1.0+</spec>
+					<dependencies>
+						<includes>
+							<include>net.sqs2:sqs-util</include>
+							<include>net.sqs2:sqs-translator</include>
+							<include>ipaexfont:ipaexfont</include>
+							<!-- <include>wqy-zenhei:wqy-zenhei</include> -->
+							<include>com.lowagie:itext</include>
+							<include>commons-logging:commons-logging</include>
+							<include>commons-io:commons-io</include>
+							<include>commons-lang:commons-lang</include>
+							<include>commons-codec:commons-codec</include>
+							<include>log4j:log4j</include>
+							<include>xalan:xalan</include>
+							<include>xerces:xercesImpl</include>
+							<include>xalan:serializer</include>
+							<include>xml-apis:xml-apis</include>
+							<include>xml-apis:xml-apis-ext</include>
+							<include>xml-resolver:xml-resolver</include>
+							<include>xerces:xercesImpl</include>
+							<include>org.apache.avalon.framework:avalon-framework-api</include>
+							<include>org.apache.avalon.framework:avalon-framework-impl</include>
+							<include>avalon-framework:avalon-framework</include>
+							<include>javax.servlet:servlet-api</include>
+							<include>org.mortbay.jetty:jetty</include>
+							<include>org.mortbay.jetty:jetty-util</include>
+							<include>org.mortbay.jetty:servlet-api-2.5</include>
+							<include>org.apache.xmlgraphics:xmlgraphics-commons</include>
+							<include>org.apache.xmlgraphics:fop</include>
+							<include>org.apache.xmlgraphics:fop-transcoder-allinone</include>
+							<include>org.apache.xmlgraphics:fop-sandbox</include>
+							<include>org.apache.xmlgraphics:batik-anim</include>
+							<include>org.apache.xmlgraphics:batik-awt-util</include>
+							<include>org.apache.xmlgraphics:batik-bridge</include>
+							<include>org.apache.xmlgraphics:batik-css</include>
+							<include>org.apache.xmlgraphics:batik-ext</include>
+							<include>org.apache.xmlgraphics:batik-extension</include>
+							<include>org.apache.xmlgraphics:batik-dom</include>
+							<include>org.apache.xmlgraphics:batik-gui-util</include>
+							<include>org.apache.xmlgraphics:batik-gvt</include>
+							<include>org.apache.xmlgraphics:batik-parser</include>
+							<include>org.apache.xmlgraphics:batik-script</include>
+							<include>org.apache.xmlgraphics:batik-svg-dom</include>
+							<include>org.apache.xmlgraphics:batik-svggen</include>
+							<include>org.apache.xmlgraphics:batik-transcoder</include>
+							<include>org.apache.xmlgraphics:batik-util</include>
+							<include>org.apache.xmlgraphics:batik-xml</include>
+
+							<include>org.apache.xmlgraphics:batik-swing</include>
+							<include>org.apache.xmlgraphics:batik-js</include>
+							<include>backport-util-concurrent:backport-util-concurrent</include>
+							<!-- 
+							<include>org.slf4j:slf4j-api</include>
+							<include>org.slf4j:slf4j-simple</include>
+ 							-->
+						</includes>
+					</dependencies>
+					<jnlp>
+						<version>1.0+</version>
+						<inputTemplate>src/main/jnlp/jnlp_template.vm</inputTemplate>
+						<outputFile>${project.artifactId}.jnlp</outputFile>
+						<mainClass>${main.class}</mainClass>
+					</jnlp>
+					
+					<sign>
+						<keystore>${sign.keystore}</keystore>
+						<keypass />
+						<storepass>${sign.storepass}</storepass>
+						<storetype>${sign.storetype}</storetype>
+						<alias>${sign.alias}</alias>
+						<verify>false</verify>
+					</sign>
+
+					<allPermissions>true</allPermissions>
+					<offlineAllowed>true</offlineAllowed>
+					<usejnlpservlet>false</usejnlpservlet>
+					<verbose>false</verbose>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<property name="jnlp.dir" value="target/jnlp" />
+								<property name="icon.dir" value="src/main/resources/image" />
+								<copy file="${icon.dir}/${icon}" tofile="${jnlp.dir}/${icon}" />
+								<copy file="${licenseFile}" tofile="${jnlp.dir}/${licenseFile}" />
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>rsync</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<property name="RSYNC" value="${bin.rsync}" />
+								<property name="SSH" value="${bin.ssh}" />
+								<property name="jnlp.dir" value="target/jnlp" />
+								<property name="LOGNAME" value="${deploy.username}" />
+								<property name="HOST" value="${deploy.hostname}" />
+								<property name="WEBAPP.dir" value="${deply.hostdir}" />
+								<echo message="${SSH} ${LOGNAME}@${HOST} mkdir -p ${WEBAPP.dir}" />
+								<exec executable="${SSH}">
+									<arg line="${LOGNAME}@${HOST} mkdir -p ${WEBAPP.dir}" />
+								</exec>
+								<echo
+									message="${RSYNC} -rR -E -e ${SSH} ${jnlp.dir} ${LOGNAME}@${HOST}:${WEBAPP.dir}" />
+								<exec executable="${RSYNC}" dir="${basedir}/${jnlp.dir}">
+									<arg line="-rR -E -e ${SSH} . ${LOGNAME}@${HOST}:${WEBAPP.dir}" />
+								</exec>
+								<exec executable="${SSH}">
+									<arg line="${LOGNAME}@${HOST} chmod -R a+r ${WEBAPP.dir}" />
+								</exec>
+							</target>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		
+		<extensions>
+			<extension>
+			<groupId>org.apache.maven.wagon</groupId>
+			<artifactId>wagon-ssh</artifactId>
+			<version>1.0-beta-7</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>Japanese</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.sqs2</groupId>
+			<artifactId>sqs-util</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sqs2</groupId>
+			<artifactId>sqs-translator</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.2</version>
+		</dependency>
+	</dependencies>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<charset>UTF-8</charset>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	
+	<properties>
+		<license>Apache License, Version 2.0</license>
+		<licenseFile>LICENSE.txt</licenseFile>
+		<main.class>net.sqs2.editor.sqs.swing.SourceEditor</main.class>
+		<icon>wizard.png</icon>
+		<maxHeapSize>812m</maxHeapSize>
+		<group>SQS</group>
+	</properties>
+</project>
